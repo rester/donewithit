@@ -1,19 +1,36 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
   StyleSheet,
   Text,
   View,
   TouchableHighlight,
   Image,
+  Alert,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
 import defaultStyle from "../config/styles";
 
-const AppImageInput = ({ imageUri, onPress }) => {
+
+const AppImageInput = ({ imageUri, onChangeImage }) => {
+
+  useEffect(() => {
+    requestPermission();
+  }, [])
+  
+  const requestPermission = async () => {
+    const result = await ImagePicker.requestCameraRollPermissionsAsync();
+    if (!result.granted)
+      alert("You need to enable permission to access the library");
+  };
+
   const handlePress = () => {
     if (!imageUri) selectImage();
+    else Alert.alert('Delete', 'Are you sure you want to delete this image?', [
+      {text: 'Yes', onPress: () => onChangeImage(null)},
+      { text: 'No'},
+    ])
   };
 
   const selectImage = async () => {
@@ -22,16 +39,7 @@ const AppImageInput = ({ imageUri, onPress }) => {
         mediaType: ImagePicker.MediaTypeOptions.Images,
         quality: 0.5,
       });
-      if (!result.cancelled) {
-        console.log("oi");
-        var newId =
-          arrayImageUri.length == 0
-            ? 1
-            : arrayImageUri[arrayImageUri.length - 1].id + 1;
-        console.log(newId);
-        var newItem = { id: newId, uri: result.uri };
-        setArrayImageUri([...arrayImageUri, newItem]);
-      }
+      if (!result.cancelled) onChangeImage(result.uri)
     } catch (error) {
       console.log("Error reading a image", error);
     }
@@ -39,18 +47,20 @@ const AppImageInput = ({ imageUri, onPress }) => {
 
   return (
     <TouchableHighlight
-      style={styles.container}
       activeOpacity={0.6}
       underlayColor="#DDDDDD"
-      onPress={onPress}
+      onPress={handlePress}
     >
-      {!imageUri && (
-        <MaterialCommunityIcons
-          name={"camera"}
-          size={50}
-          color={defaultStyle.colors.medium}
-        />
-      )}
+      <View style={styles.container}>
+        {!imageUri && (
+          <MaterialCommunityIcons
+            name={"camera"}
+            size={50}
+            color={defaultStyle.colors.medium}
+          />
+        )}
+        {imageUri && <Image source={{uri: imageUri}} style={styles.image}/>}
+      </View>
     </TouchableHighlight>
   );
 };
@@ -62,10 +72,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: defaultStyle.colors.light,
     borderRadius: 15,
-    height: 100,
-    padding: 10,
-    overflow: "hidden",
     justifyContent: "center",
+    height: 100,
+    overflow: "hidden",
     width: 100,
   },
   image: {
