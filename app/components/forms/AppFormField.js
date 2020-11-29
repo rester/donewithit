@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { useFormikContext, UseFormikContext } from "formik";
+import { useFormikContext } from "formik";
 
 import AppTextInput from "../AppTextInput";
 import ErrorMessage from "./ErrorMessage";
@@ -20,6 +20,6 @@ const AppFormField = ({ name, width, ...otherprops }) => {
   );
 };
 
-export default AppFormField;
-
 const styles = StyleSheet.create({});
+
+export default AppFormField;

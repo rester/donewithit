@@ -5,7 +5,7 @@ import CategoryPickerItem from "../components/CategoryPickerItem";
 
 import {
   AppForm,
-  AppformField,
+  AppFormField,
   AppFormPicker,
   SubmitButton,
 } from "../components/forms";
@@ -96,8 +96,8 @@ const ListingEditScreen = () => {
         validationSchema={validationSchema}
       >
         <AppFormImagePicker name="images" />
-        <AppformField maxLength={255} name="title" placeholder="Title" />
-        <AppformField
+        <AppFormField maxLength={255} name="title" placeholder="Title" />
+        <AppFormField
           keyboardType="numeric"
           maxLength={8}
           name="price"
@@ -113,7 +113,7 @@ const ListingEditScreen = () => {
           maxLength={8}
           width="50%"
         />
-        <AppformField
+        <AppFormField
           maxLength={255}
           multiline
           name="description"

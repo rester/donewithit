@@ -42,8 +42,6 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
-
 const styles = StyleSheet.create({
   container: {
     padding: 10,
@@ -55,3 +53,5 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+
+export default LoginScreen;
