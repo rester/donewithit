@@ -31,7 +31,6 @@ const AccountScreen = ({ navigation }) => {
       <View style={styles.container}>
         <ListItem
           title="Marcos Insfran"
-          s
           subTitle="marcos.insfran@done.com"
           image={require("../assets/me.jpg")}
         />
