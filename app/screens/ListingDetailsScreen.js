@@ -1,15 +1,23 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { Image } from "react-native-expo-image-cache";
 
 import AppText from "../components/AppText";
 import ListItem from "../components/ListItem";
 import colors from "../config/colors";
+import ContactSellerForm from "../components/ContactSellerForm";
+import { ScrollView } from "react-native-gesture-handler";
 
 const ListingDetailsScreen = ({ route }) => {
   const listing = route.params;
   return (
-    <View>
+    <ScrollView>
       <Image
         style={styles.image}
         preview={{ uri: listing.images[0].thumbnailUrl }}
@@ -26,8 +34,9 @@ const ListingDetailsScreen = ({ route }) => {
             subTitle="5 Listing"
           />
         </View>
+        <ContactSellerForm listing={listing} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

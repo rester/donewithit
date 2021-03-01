@@ -81,7 +81,8 @@ const categories = [
 ];
 
 const ListingEditScreen = () => {
-  const location = useLocation();
+  //const location = useLocation();
+  const location = { lat: "not", long: "not" };
   const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
 
